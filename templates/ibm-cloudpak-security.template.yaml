@@ -1,8 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Template for IBM Cloud Pak for Security deployment into an existing VPC. **WARNING** This template creates EC2 instances and related resources. You will be billed for the AWS resources used if you create a stack from this template. (qs-1r9m3n6hu)
+Description: Template for IBM Cloud Pak for Security deployment into an existing VPC. **WARNING** This template creates EC2 instances and related resources. You will be billed for the AWS resources used
+  if you create a stack from this template. (qs-1r9m3n6hu)
 Metadata:
   QuickStartDocumentation:
-    EntrypointName: 'Launch IBM Cloud Pak for Security into an existing VPC on AWS'
+    EntrypointName: Launch IBM Cloud Pak for Security into an existing VPC on AWS
     Order: '2'
   cfn-lint:
     config:
@@ -174,10 +175,8 @@ Parameters:
       - '1'
       - '3'
     Default: '3'
-    Description: >-
-      The number of Availability Zones used for the deployment. Some Regions might be limited to two Availability Zones.
-      For a single IBM Cloud Pak for Security cluster to be highly available, three Availability Zones are required to avoid a single point of failure when using three nodes.
-      With fewer than three Availability Zones, one of the zones will have more master nodes.
+    Description: The number of Availability Zones used for the deployment. Some Regions might be limited to two Availability Zones. For a single IBM Cloud Pak for Security cluster to be highly available,
+      three Availability Zones are required to avoid a single point of failure when using three nodes. With fewer than three Availability Zones, one of the zones will have more master nodes.
     Type: String
   AvailabilityZones:
     Description: The list of Availability Zones to use for the subnets in the VPC. The Quick Start uses one or three Availability Zones and preserves the logical order that you specify.
@@ -212,7 +211,8 @@ Parameters:
   BootNodeAccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/x.
-    Description:  The CIDR IP range that is permitted to access the boot node instance. Set this value to a trusted IP range. The value `0.0.0.0/0` permits access to all IP addresses. Additional values can be added post-deployment from the Amazon EC2 console.
+    Description: The CIDR IP range that is permitted to access the boot node instance. Set this value to a trusted IP range. The value `0.0.0.0/0` permits access to all IP addresses. Additional values can
+      be added post-deployment from the Amazon EC2 console.
     Type: String
   DomainName:
     AllowedPattern: ^(\S+)$
@@ -220,7 +220,8 @@ Parameters:
     Description: Amazon Route 53 base domain configured for your Red Hat OpenShift Container Platform cluster. Must be a valid base domain (e.g., example.com).
     Type: String
   KeyPairName:
-    Description: Name of an existing public/private key pair, which allows you to securely connect to your instance after it launches. If you do not have one in this AWS Region, please create it before continuing.
+    Description: Name of an existing public/private key pair, which allows you to securely connect to your instance after it launches. If you do not have one in this AWS Region, please create it before
+      continuing.
     Type: AWS::EC2::KeyPair::KeyName
   RedhatPullSecret:
     AllowedPattern: ^s3:\/\/+[0-9a-z-.\/]*$
@@ -236,7 +237,8 @@ Parameters:
   NumberOfCompute:
     ConstraintDescription: The minimum number of compute nodes must be 4.
     Default: 4
-    Description: 'The desired capacity for the Red Hat Openshift Container Platform compute node instances. The minimum value required is 4 nodes. Note: If the number of compute node instances exceeds your Red Hat entitlement limits or AWS instance limits, the stack will fail. Choose a number that is within your limits.'
+    Description: 'The desired capacity for the Red Hat Openshift Container Platform compute node instances. The minimum value required is 4 nodes. Note: If the number of compute node instances exceeds your
+      Red Hat entitlement limits or AWS instance limits, the stack will fail. Choose a number that is within your limits.'
     Type: Number
     MinValue: 4
   MasterInstanceType:
@@ -256,11 +258,12 @@ Parameters:
   ClusterName:
     AllowedPattern: ^[0-9a-z-.]*$
     ConstraintDescription: Must contain valid cluster name. The name must start with a letter, can contain letters, numbers, periods (.), and hyphen (-).
-    Description: Name of your Red Hat Openshift Container Platform cluster. The name must start with a letter, can contain letters, numbers, periods (.), and hyphen (-). Use a name that is unique across Regions.
+    Description: Name of your Red Hat Openshift Container Platform cluster. The name must start with a letter, can contain letters, numbers, periods (.), and hyphen (-). Use a name that is unique across
+      Regions.
     Type: String
   LicenseAgreement:
     AllowedValues:
-      - 'I agree'
+      - I agree
       - '-'
     ConstraintDescription: Agree to the license terms for IBM Cloud Pak for Security.
     Default: '-'
@@ -276,10 +279,10 @@ Parameters:
   Namespace:
     AllowedPattern: ^([0-9a-z]*(?<!openshift|kube))*?$
     ConstraintDescription: Must contain a valid namespace. The namespace must contain only lowercase alphanumeric characters, must start and end with an alphanumeric character.
-    Default: 'cp4s'
-    Description: >- 
-      The Red hat Openshift Container Platform project that will be created for deploying IBM Cloud Pak for Security. The namespace must contain only lowercase alphanumeric characters, must start and end with an alphanumeric character. It must be a dedicated namespace for IBM Cloud Pak for Security.
-      Must not be default, kube-*, or openshift-*. The namespace is created automatically if it does not exist.
+    Default: cp4s
+    Description: The Red hat Openshift Container Platform project that will be created for deploying IBM Cloud Pak for Security. The namespace must contain only lowercase alphanumeric characters, must start
+      and end with an alphanumeric character. It must be a dedicated namespace for IBM Cloud Pak for Security. Must not be default, kube-*, or openshift-*. The namespace is created automatically if it does
+      not exist.
     Type: String
   AdminUser:
     AllowedPattern: ^(\S+)$
@@ -292,56 +295,53 @@ Parameters:
     AllowedPattern: ^(\S+)$
     ConstraintDescription: Must contain password to access IBM Entitled Registry.
     Description: The password to access IBM Entitled Registry.
-    Type: String 
+    Type: String
     NoEcho: 'true'
   CP4SDeploymentLogsBucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-    ConstraintDescription: The IBM Cloud Pak for Security deployment logs bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-) and must be between 3 (min) and 63 (max) characters long. It cannot start or end with a hyphen (-).
-    Description: >-
-      The name of the S3 bucket where IBM Cloud Pak for Security deployment logs are to be exported. This S3 bucket will be created during the stack creation process. The deployment logs provide a record of the boot strap scripting actions and are useful for problem determination if the deployment fails in some way. 
-      This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). Bucket names must be between 3 (min) and 63 (max) characters long.
+    ConstraintDescription: The IBM Cloud Pak for Security deployment logs bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-) and must be between 3 (min) and 63 (max)
+      characters long. It cannot start or end with a hyphen (-).
+    Description: The name of the S3 bucket where IBM Cloud Pak for Security deployment logs are to be exported. This S3 bucket will be created during the stack creation process. The deployment logs provide
+      a record of the boot strap scripting actions and are useful for problem determination if the deployment fails in some way.  This name can include numbers, lowercase letters, uppercase letters, and
+      hyphens, but do not start or end with a hyphen (-). Bucket names must be between 3 (min) and 63 (max) characters long.
     MaxLength: 63
     MinLength: 3
     Type: String
   CP4SFQDN:
     Default: ''
-    Description: >-
-      The fully qualified domain name (FQDN) created for IBM Cloud Pak for Security. When the domain is not specified, it will be generated as cp4s.<cluster_ingress_subdomain>.
-      For more information on the IBM Cloud Pak for Security FQDN requirements, see https://ibm.biz/BdPrSe.
+    Description: The fully qualified domain name (FQDN) created for IBM Cloud Pak for Security. When the domain is not specified, it will be generated as cp4s.<cluster_ingress_subdomain>. For more information
+      on the IBM Cloud Pak for Security FQDN requirements, see https://ibm.biz/BdPrSe.
     Type: String
   DomainCertificate:
     AllowedPattern: ^(|s3:\/\/+[0-9a-z-.\/]*)$
     ConstraintDescription: Must be a valid S3 URI path of the domain certificate file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/cert).
     Default: ''
-    Description: >-
-      S3 URI path of the domain certificate file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/cert). Update only if you specified your own FQDN for IBM Cloud Pak for Security.
-      If the domain is not specified, the Red Hat OpenShift cluster certificates are used. For more information on TLS certificate, see https://ibm.biz/BdPrSe.
+    Description: S3 URI path of the domain certificate file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/cert). Update only if you specified your own FQDN
+      for IBM Cloud Pak for Security. If the domain is not specified, the Red Hat OpenShift cluster certificates are used. For more information on TLS certificate, see https://ibm.biz/BdPrSe.
     Type: String
   DomainCertificateKey:
     AllowedPattern: ^(|s3:\/\/+[0-9a-z-.\/]*)$
     ConstraintDescription: Must be a valid S3 URI path of the domain certificate key file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/key).
     Default: ''
-    Description: >- 
-      S3 URI path of the domain certificate key file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/key). Update only if you specified your own FQDN for IBM Cloud Pak for Security.
-      If the domain is not specified, the Red Hat OpenShift cluster certificates are used. For more information on TLS key, see https://ibm.biz/BdPrSe.
+    Description: S3 URI path of the domain certificate key file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/key). Update only if you specified your own FQDN
+      for IBM Cloud Pak for Security. If the domain is not specified, the Red Hat OpenShift cluster certificates are used. For more information on TLS key, see https://ibm.biz/BdPrSe.
     Type: String
   CustomCaFile:
     AllowedPattern: ^(|s3:\/\/+[0-9a-z-.\/]*)$
     ConstraintDescription: Must be a valid S3 URI path of the custom ca certificate file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/custom-ca-cert).
     Default: ''
-    Description: >-
-      S3 URI path of the custom ca certificate file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/custom-ca-cert). Update only if you are using a custom or self-signed certificate. 
-      For more information on custom TLS certificate, see https://ibm.biz/BdPrSe.
+    Description: S3 URI path of the custom ca certificate file that is associated with the IBM Cloud Pak for Security domain (e.g., s3://my-bucket/path/to/custom-ca-cert). Update only if you are using a
+      custom or self-signed certificate.  For more information on custom TLS certificate, see https://ibm.biz/BdPrSe.
     Type: String
   StorageClass:
     Default: ''
-    Description: >-
-      The provisioned block or file storage class to be used for creating all the PVCs required by IBM Cloud Pak for Security. When it is not specified, the default storage class will be used.
+    Description: The provisioned block or file storage class to be used for creating all the PVCs required by IBM Cloud Pak for Security. When it is not specified, the default storage class will be used.
       The storage class cannot be modified after installation. For more details on Storage class, see https://ibm.biz/BdPrSp.
     Type: String
   BackupStorageClass:
     Default: ''
-    Description: Storage class used for creating the backup PVC. If this value is not set, IBM Cloud Pak for Security will use the same value set in 'Storage class' parameter. For more details on Backup storage class, see https://ibm.biz/BdPrSp.
+    Description: Storage class used for creating the backup PVC. If this value is not set, IBM Cloud Pak for Security will use the same value set in 'Storage class' parameter. For more details on Backup
+      storage class, see https://ibm.biz/BdPrSp.
     Type: String
   BackupStorageSize:
     AllowedPattern: ^(([0-9]+[G]i)|)$
@@ -351,10 +351,11 @@ Parameters:
     Type: String
   ImagePullPolicy:
     AllowedValues:
-      - 'Always'
-      - 'IfNotPresent'
-    Default: 'IfNotPresent'
-    Description: The pull policy for the images. When Red Hat OpenShift creates containers, it uses the ImagePullPolicy to determine whether to pull the container image from the registry before starting the container.
+      - Always
+      - IfNotPresent
+    Default: IfNotPresent
+    Description: The pull policy for the images. When Red Hat OpenShift creates containers, it uses the ImagePullPolicy to determine whether to pull the container image from the registry before starting
+      the container.
     Type: String
   DeployDRC:
     AllowedValues:
@@ -385,47 +386,52 @@ Parameters:
     Type: String
   QSS3BucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-    ConstraintDescription: The Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-) and must be between 3 (min) and 63 (max) characters long. It cannot start or end with a hyphen (-).
+    ConstraintDescription: The Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-) and must be between 3 (min) and 63 (max) characters long. It cannot start
+      or end with a hyphen (-).
     Default: aws-ia-us-east-1
-    Description: >-
-      Name of the S3 bucket for your copy of the Quick Start assets. Do not change the default value unless you are customizing the deployment. Changing the name updates code references to point to a new Quick Start location.
-      This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). Bucket names must be between 3 (min) and 63 (max) characters long. To know how you can customize the deployment, see https://aws-quickstart.github.io/option1.html
+    Description: Name of the S3 bucket for your copy of the Quick Start assets. Do not change the default value unless you are customizing the deployment. Changing the name updates code references to point
+      to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). Bucket names must be between 3 (min) and
+      63 (max) characters long. To know how you can customize the deployment, see https://aws-quickstart.github.io/option1.html
     MaxLength: 63
     MinLength: 3
     Type: String
   QSS3BucketRegion:
-    Default: 'us-east-1'
-    Description: The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. Do not change the default value unless you are customizing the deployment. To know how you can customize the deployment, see https://aws-quickstart.github.io/option1.html
-    Type: String   
+    Default: us-east-1
+    Description: The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. Do not change the default value unless you are customizing the deployment. To know how you can customize the deployment,
+      see https://aws-quickstart.github.io/option1.html
+    Type: String
   QSS3KeyPrefix:
     AllowedPattern: ^([0-9a-zA-Z-.]+/)*$
     ConstraintDescription: The Quick Start S3 key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/).
     Default: cfn-ps-ibm-cloud-pak-for-security/
-    Description: >-
-      S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Do not change the default value unless you are customizing the deployment.
-      Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). Must end with a forward slash,
-      see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html. To know how you can customize the deployment, see https://aws-quickstart.github.io/option1.html.
+    Description: S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Do not change the default value unless you are customizing the deployment. Changing this prefix
+      updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). Must end with a forward
+      slash, see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html. To know how you can customize the deployment, see https://aws-quickstart.github.io/option1.html.
     Type: String
 Rules:
   AdminUserRule:
     Assertions:
-    - Assert:
-        Fn::Not : [{"Fn::Equals" : [{"Ref" : "AdminUser"}, "admin"]}]
-      AssertDescription: Value cannot be 'admin'.
+      - Assert:
+          Fn::Not:
+            - Fn::Equals:
+                - Ref: AdminUser
+                - admin
+        AssertDescription: Value cannot be 'admin'.
   LicenseAgreementRule:
     Assertions:
-    - Assert:
-        Fn::Contains:
-        - - I agree
-        - Ref: LicenseAgreement
-      AssertDescription: User must agree to the terms of the license agreement.  
+      - Assert:
+          Fn::Contains:
+            - - I agree
+            - Ref: LicenseAgreement
+        AssertDescription: User must agree to the terms of the license agreement.
   SubnetsInVPC:
     Assertions:
-      - Assert: !EachMemberIn
-          - !ValueOfAll
-            - AWS::EC2::Subnet::Id
-            - VpcId
-          - !RefAll 'AWS::EC2::VPC::Id'
+      - Assert:
+          Fn::EachMemberIn:
+            - Fn::ValueOfAll:
+                - AWS::EC2::Subnet::Id
+                - VpcId
+            - Fn::RefAll: AWS::EC2::VPC::Id
         AssertDescription: All subnets must be in the VPC.
 Mappings:
   AWSAMIRegionMap:
@@ -481,23 +487,28 @@ Mappings:
       RHEL79HVM: ami-068fd644a9270e323
       COREOS: ami-0309beb7e5184ff83
 Conditions:
-  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-ia-us-east-1']
+  UsingDefaultBucket:
+    Fn::Equals:
+      - Ref: QSS3BucketName
+      - aws-ia-us-east-1
 Resources:
   CP4SIAMUser:
-    Type: 'AWS::IAM::User'
+    Type: AWS::IAM::User
     Properties:
       ManagedPolicyArns:
-        - !Sub arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess
   CP4SIAMUserAccessKey:
-    Type: 'AWS::IAM::AccessKey'
+    Type: AWS::IAM::AccessKey
     Properties:
-      UserName: !Ref CP4SIAMUser
+      UserName:
+        Ref: CP4SIAMUser
   CP4SSecret:
-    Type: "AWS::SecretsManager::Secret"
+    Type: AWS::SecretsManager::Secret
     Properties:
-      SecretString: !Sub '{"repositoryPassword":"${RepositoryPassword}"}'
+      SecretString:
+        Fn::Sub: '{"repositoryPassword":"${RepositoryPassword}"}'
   OpenshiftSecret:
-    Type: "AWS::SecretsManager::Secret"
+    Type: AWS::SecretsManager::Secret
     Properties:
       SecretString: '{ "ocpPassword": null }'
   LambdaExecutionRole:
@@ -508,7 +519,7 @@ Resources:
           ignore_checks:
             - EIAMPolicyWildcardResource
           ignore_reasons:
-            - EIAMPolicyWildcardResource: "Wildcard resource for SendCommand action allowed by design"
+            - EIAMPolicyWildcardResource: Wildcard resource for SendCommand action allowed by design
     Properties:
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
@@ -518,10 +529,10 @@ Resources:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
       ManagedPolicyArns:
-        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore'
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMDirectoryServiceAccess'
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy'
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AmazonSSMDirectoryServiceAccess
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy
       Path: /
       Policies:
         - PolicyName: lambda-cleanUpLambda
@@ -531,19 +542,19 @@ Resources:
               - Effect: Allow
                 Action:
                   - ssm:SendCommand
-                Resource: "*"
+                Resource: '*'
               - Effect: Allow
                 Action:
                   - ssm:PutParameter
                   - ssm:GetParameter
                   - ssm:DeleteParameter
                 Resource:
-                  - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/*
+                  - Fn::Sub: arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/*
               - Effect: Allow
                 Action:
                   - logs:FilterLogEvents
                 Resource:
-                  - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:*
+                  - Fn::Sub: arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:*
   BootNodeIamRole:
     Type: AWS::IAM::Role
     Metadata:
@@ -553,101 +564,118 @@ Resources:
             - EIAMPolicyActionWildcard
             - EIAMPolicyWildcardResource
           ignore_reasons:
-            - EIAMPolicyActionWildcard: "Describe* actions permitted by design"
-            - EIAMPolicyWildcardResource: "Wildcard resource allowed by design"
+            - EIAMPolicyActionWildcard: Describe* actions permitted by design
+            - EIAMPolicyWildcardResource: Wildcard resource allowed by design
     Properties:
       AssumeRolePolicyDocument:
-        Version: "2012-10-17"
+        Version: '2012-10-17'
         Statement:
-        - Effect: "Allow"
-          Principal:
-            Service:
-            - "ec2.amazonaws.com"
-          Action:
-          - "sts:AssumeRole"
-      Path: "/"
-      ManagedPolicyArns:
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore'
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMDirectoryServiceAccess'
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy'
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AWSCloudFormationReadOnlyAccess'
-      Policies:
-      - PolicyName: bootnode-policy
-        PolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-          - Effect: "Allow"
-            Action: "ec2:Describe*"
-            Resource: "*"
-          - Effect: "Allow"
-            Action: "ec2:AttachVolume"
-            Resource: "*"
-          - Effect: "Allow"
-            Action: "ec2:DetachVolume"
-            Resource: "*"
-          - Effect: "Allow"
-            Action: "s3:GetObject"
-            Resource: !Sub
-              - arn:${AWS::Partition}:s3:::${S3Bucket}/${QSS3KeyPrefix}*
-              - S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}', !Ref QSS3BucketName]
-          - Effect: "Allow"
-            Action:
-            - "secretsmanager:GetSecretValue"
-            - "secretsmanager:UpdateSecret"
-            Resource:
-            - !Ref CP4SSecret
-            - !Ref AWSCredentialSecret
-            - !Ref OpenshiftSecret
-          - Effect: "Allow"
-            Action: "s3:ListBucket"
-            Resource: !Sub arn:${AWS::Partition}:s3:::${CP4SDeploymentLogsBucketName}
-          - Effect: "Allow"
-            Action: "s3:PutObject"
-            Resource: !Sub arn:${AWS::Partition}:s3:::${CP4SDeploymentLogsBucketName}/*
           - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
             Action:
-            - ssm:SendCommand
-            - ssm:PutParameter
-            - ssm:GetParameter
-            Resource:
-            - '*'
+              - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AmazonSSMDirectoryServiceAccess
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy
+        - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AWSCloudFormationReadOnlyAccess
+      Policies:
+        - PolicyName: bootnode-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: ec2:Describe*
+                Resource: '*'
+              - Effect: Allow
+                Action: ec2:AttachVolume
+                Resource: '*'
+              - Effect: Allow
+                Action: ec2:DetachVolume
+                Resource: '*'
+              - Effect: Allow
+                Action: s3:GetObject
+                Resource:
+                  Fn::Sub:
+                    - arn:${AWS::Partition}:s3:::${S3Bucket}/${QSS3KeyPrefix}*
+                    - S3Bucket:
+                        Fn::If:
+                          - UsingDefaultBucket
+                          - Fn::Sub: ${QSS3BucketName}
+                          - Ref: QSS3BucketName
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                  - secretsmanager:UpdateSecret
+                Resource:
+                  - Ref: CP4SSecret
+                  - Ref: AWSCredentialSecret
+                  - Ref: OpenshiftSecret
+              - Effect: Allow
+                Action: s3:ListBucket
+                Resource:
+                  Fn::Sub: arn:${AWS::Partition}:s3:::${CP4SDeploymentLogsBucketName}
+              - Effect: Allow
+                Action: s3:PutObject
+                Resource:
+                  Fn::Sub: arn:${AWS::Partition}:s3:::${CP4SDeploymentLogsBucketName}/*
+              - Effect: Allow
+                Action:
+                  - ssm:SendCommand
+                  - ssm:PutParameter
+                  - ssm:GetParameter
+                Resource:
+                  - '*'
   OpenShiftURL:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: !Sub "${AWS::StackName}-OpenShiftURL"
+      Name:
+        Fn::Sub: ${AWS::StackName}-OpenShiftURL
       Type: String
-      Value: "PlaceHolder"
+      Value: PlaceHolder
   CP4SURL:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: !Sub "${AWS::StackName}-CP4SURL"
+      Name:
+        Fn::Sub: ${AWS::StackName}-CP4SURL
       Type: String
-      Value: "PlaceHolder"
+      Value: PlaceHolder
   BootnodeInstanceProfile:
-    Type: "AWS::IAM::InstanceProfile"
+    Type: AWS::IAM::InstanceProfile
     Properties:
-      Path: "/"
+      Path: /
       Roles:
-      - Ref: "BootNodeIamRole"
+        - Ref: BootNodeIamRole
   BootnodeSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Cluster Bootnode Security Group
       SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: 22
-        ToPort: 22
-        CidrIp: !Ref BootNodeAccessCIDR
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp:
+            Ref: BootNodeAccessCIDR
       SecurityGroupEgress:
-      - IpProtocol: "-1"
-        CidrIp: 0.0.0.0/0
-      VpcId: !Ref VPCID
+        - IpProtocol: '-1'
+          CidrIp: 0.0.0.0/0
+      VpcId:
+        Ref: VPCID
   AWSCredentialSecret:
-    Type: "AWS::SecretsManager::Secret"
+    Type: AWS::SecretsManager::Secret
     Properties:
-      SecretString: !Sub
-        - '{"aws_secret_access_key":"${CP4SIAMUserAccessKey}, "aws_access_key_id":"${CP4SIAMUserSecret}"}'
-        - {CP4SIAMUserAccessKey: !Ref CP4SIAMUserAccessKey, CP4SIAMUserSecret: !GetAtt [CP4SIAMUserAccessKey, SecretAccessKey]}
+      SecretString:
+        Fn::Sub:
+          - '{"aws_secret_access_key":"${CP4SIAMUserAccessKey}, "aws_access_key_id":"${CP4SIAMUserSecret}"}'
+          - CP4SIAMUserAccessKey:
+              Ref: CP4SIAMUserAccessKey
+            CP4SIAMUserSecret:
+              Fn::GetAtt:
+                - CP4SIAMUserAccessKey
+                - SecretAccessKey
   BootnodeInstance:
     Type: AWS::EC2::Instance
     Metadata:
@@ -658,168 +686,132 @@ Resources:
         StackPropertiesFile:
           files:
             /root/mystack.props:
-              content: !Sub |
-                AWS_REGION=${AWS::Region}
-                AWS_STACKID="${AWS::StackId}"
-                AWS_STACKNAME="${AWS::StackName}"
-
+              content:
+                Fn::Sub: "AWS_REGION=${AWS::Region}\nAWS_STACKID=\"${AWS::StackId}\"\nAWS_STACKNAME=\"${AWS::StackName}\"\n"
             /root/.aws/config:
-              content: !Sub |
-                [default]
-                region=${AWS::Region}
-
+              content:
+                Fn::Sub: "[default]\nregion=${AWS::Region}\n"
             /root/.aws/credentials:
               content:
-                !Sub
-                - |
-                  [default]
-                  aws_access_key_id=${CP4SIAMUserAccessKey}
-                  aws_secret_access_key=${CP4SIAMUserSecret}
-                -
-                  CP4SIAMUserAccessKey: !Ref CP4SIAMUserAccessKey
-                  CP4SIAMUserSecret: !GetAtt [CP4SIAMUserAccessKey, SecretAccessKey]
+                Fn::Sub:
+                  - "[default]\naws_access_key_id=${CP4SIAMUserAccessKey}\naws_secret_access_key=${CP4SIAMUserSecret}\n"
+                  - CP4SIAMUserAccessKey:
+                      Ref: CP4SIAMUserAccessKey
+                    CP4SIAMUserSecret:
+                      Fn::GetAtt:
+                        - CP4SIAMUserAccessKey
+                        - SecretAccessKey
     Properties:
-      KeyName: !Ref 'KeyPairName'
-      ImageId: !FindInMap [AWSAMIRegionMap, !Ref "AWS::Region", RHEL79HVM]
+      KeyName:
+        Ref: KeyPairName
+      ImageId:
+        Fn::FindInMap:
+          - AWSAMIRegionMap
+          - Ref: AWS::Region
+          - RHEL79HVM
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeSize: 500
             VolumeType: gp2
-      IamInstanceProfile: !Ref BootnodeInstanceProfile
+      IamInstanceProfile:
+        Ref: BootnodeInstanceProfile
       Tags:
         - Key: Name
           Value: BootNode
       InstanceType: i3.large
       NetworkInterfaces:
-      - GroupSet:
-        - !Ref BootnodeSecurityGroup
-        AssociatePublicIpAddress: true
-        DeviceIndex: '0'
-        DeleteOnTermination: true
-        SubnetId: !Ref PublicSubnet1ID
+        - GroupSet:
+            - Ref: BootnodeSecurityGroup
+          AssociatePublicIpAddress: true
+          DeviceIndex: '0'
+          DeleteOnTermination: true
+          SubnetId:
+            Ref: PublicSubnet1ID
       UserData:
         Fn::Base64:
-          !Sub
-          - |
-            #!/bin/bash -x
-            yum install -y git
-            yum install -y wget
-            yum install -y unzip
-            yum install -y python3
-            yum install -y jq
-
-            git clone https://github.com/aws-quickstart/quickstart-linux-utilities.git
-            #file to set up system-wide environment variables
-            touch /etc/profile.d/cp4s_install.sh
-            echo "export P=/quickstart-linux-utilities/quickstart-cfn-tools.source" >> /etc/profile.d/cp4s_install.sh
-            #load the environment variables into the current shell session
-            source /etc/profile.d/cp4s_install.sh
-            source $P
-
-            qs_bootstrap_pip || qs_err " pip bootstrap failed "
-            qs_aws-cfn-bootstrap || qs_err " cfn bootstrap failed "
-            pip install awscli  &> /var/log/userdata.awscli_install.log || qs_err " awscli install failed "
-
-            /usr/bin/cfn-init -v --stack ${AWS::StackName} --resource BootnodeInstance --configsets Required --region ${AWS::Region}
-            # Signal the status from cfn-init
-            /usr/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource BootnodeInstance --region ${AWS::Region}
-
-            echo -e "export CP4S_QS_S3URI=s3://${QSS3BucketName}/${QSS3KeyPrefix}\nexport DOMAIN_CERTIFICATE_S3URI=${DomainCertificate}\nexport DOMAIN_CERTIFICATE_KEY_S3URI=${DomainCertificateKey}\nexport CUSTOM_CA_FILE_S3URI=${CustomCaFile}\nexport SOAR_ENTITLEMENT=${SOAREntitlement}\nexport AWS_REGION=${AWS::Region}\nexport AWS_STACKID=${AWS::StackId}\nexport AWS_STACKNAME=${AWS::StackName}\nexport AMI_ID='${AMI_ID}'\nexport CP4S_SECRET='${CP4SSecret}'\nexport OCP_SECRET='${OpenshiftSecret}'\nexport ICP4SInstallationCompletedURL='${ICP4SInstallationCompletedHandle}'" >> /etc/profile.d/cp4s_install.sh
-            source /etc/profile.d/cp4s_install.sh
-
-            mkdir -p /quickstart
-            mkdir -p /ibm
-            chmod -R 755 /ibm
-
-            aws s3 cp ${!CP4S_QS_S3URI}scripts/bootstrap.sh /quickstart/
-            chmod +x /quickstart/bootstrap.sh
-            ./quickstart/bootstrap.sh
-          -
-            AMI_ID: !FindInMap [AWSAMIRegionMap, !Ref "AWS::Region", COREOS]
+          Fn::Sub:
+            - "#!/bin/bash -x\nyum install -y git\nyum install -y wget\nyum install -y unzip\nyum install -y python3\nyum install -y jq\n\ngit clone https://github.com/aws-quickstart/quickstart-linux-utilities.git\n\
+              #file to set up system-wide environment variables\ntouch /etc/profile.d/cp4s_install.sh\necho \"export P=/quickstart-linux-utilities/quickstart-cfn-tools.source\" >> /etc/profile.d/cp4s_install.sh\n\
+              #load the environment variables into the current shell session\nsource /etc/profile.d/cp4s_install.sh\nsource $P\n\nqs_bootstrap_pip || qs_err \" pip bootstrap failed \"\nqs_aws-cfn-bootstrap\
+              \ || qs_err \" cfn bootstrap failed \"\npip install awscli  &> /var/log/userdata.awscli_install.log || qs_err \" awscli install failed \"\n\n/usr/bin/cfn-init -v --stack ${AWS::StackName}\
+              \ --resource BootnodeInstance --configsets Required --region ${AWS::Region}\n# Signal the status from cfn-init\n/usr/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource BootnodeInstance\
+              \ --region ${AWS::Region}\n\necho -e \"export CP4S_QS_S3URI=s3://${QSS3BucketName}/${QSS3KeyPrefix}\\nexport DOMAIN_CERTIFICATE_S3URI=${DomainCertificate}\\nexport DOMAIN_CERTIFICATE_KEY_S3URI=${DomainCertificateKey}\\\
+              nexport CUSTOM_CA_FILE_S3URI=${CustomCaFile}\\nexport SOAR_ENTITLEMENT=${SOAREntitlement}\\nexport AWS_REGION=${AWS::Region}\\nexport AWS_STACKID=${AWS::StackId}\\nexport AWS_STACKNAME=${AWS::StackName}\\\
+              nexport AMI_ID='${AMI_ID}'\\nexport CP4S_SECRET='${CP4SSecret}'\\nexport OCP_SECRET='${OpenshiftSecret}'\\nexport ICP4SInstallationCompletedURL='${ICP4SInstallationCompletedHandle}'\" >> /etc/profile.d/cp4s_install.sh\n\
+              source /etc/profile.d/cp4s_install.sh\n\nmkdir -p /quickstart\nmkdir -p /ibm\nchmod -R 755 /ibm\n\naws s3 cp ${!CP4S_QS_S3URI}scripts/bootstrap.sh /quickstart/\nchmod +x /quickstart/bootstrap.sh\n\
+              ./quickstart/bootstrap.sh\n"
+            - AMI_ID:
+                Fn::FindInMap:
+                  - AWSAMIRegionMap
+                  - Ref: AWS::Region
+                  - COREOS
   CleanUpLambda:
     Type: AWS::Lambda::Function
     Properties:
       Code:
-        ZipFile: |
-          import boto3
-          import json
-          import cfnresponse
-          import os
-          import traceback
-          import time
-          def handler(event, context):
-              responseData = {}
-              try:
-                  print("event_obj:",json.dumps(event))
-                  print(event['RequestType'])
-                  if event['RequestType'] == 'Delete':
-                    print("Run unsubscribe script")
-                    ssm = boto3.client('ssm',region_name=os.environ['Region'])
-                    instanceID = os.environ['BootNode']
-                    stackname = os.environ['StackName']
-                    print(instanceID)
-                    response = ssm.send_command(Targets=[{"Key":"instanceids","Values":[instanceID]}],
-                            DocumentName="AWS-RunShellScript",
-                            Parameters={"commands":["/ibm/destroy.sh %s" %(stackname)],
-                                        "executionTimeout":["1200"],
-                                        "workingDirectory":["/ibm"]},
-                            Comment="Execute script in uninstall openshift",
-                            TimeoutSeconds=120)
-                    print(response)
-                    current_status = "WAIT"
-                    final_status = "READY"
-                    parameterName = stackname+"_CleanupStatus"       
-                    response = ssm.put_parameter(Name=parameterName,
-                           Description="Waiting for CleanupStatus to be READY",
-                           Value=current_status,
-                           Type='String',
-                           Overwrite=True)
-                    print(response)
-                    while(current_status!=final_status):
-                      time.sleep(30)
-                      response = ssm.get_parameter(Name=parameterName)
-                      parameter = response.get('Parameter')
-                      current_status = parameter.get('Value')
-                      print(current_status)
-                    ssm.delete_parameter(Name=parameterName)
-              except Exception as e:
-                print(e)
-                traceback.print_exc()
-              cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, '')
+        ZipFile: "import boto3\nimport json\nimport cfnresponse\nimport os\nimport traceback\nimport time\ndef handler(event, context):\n    responseData = {}\n    try:\n        print(\"event_obj:\",json.dumps(event))\n\
+          \        print(event['RequestType'])\n        if event['RequestType'] == 'Delete':\n          print(\"Run unsubscribe script\")\n          ssm = boto3.client('ssm',region_name=os.environ['Region'])\n\
+          \          instanceID = os.environ['BootNode']\n          stackname = os.environ['StackName']\n          print(instanceID)\n          response = ssm.send_command(Targets=[{\"Key\":\"instanceids\"\
+          ,\"Values\":[instanceID]}],\n                  DocumentName=\"AWS-RunShellScript\",\n                  Parameters={\"commands\":[\"/ibm/destroy.sh %s\" %(stackname)],\n                       \
+          \       \"executionTimeout\":[\"1200\"],\n                              \"workingDirectory\":[\"/ibm\"]},\n                  Comment=\"Execute script in uninstall openshift\",\n              \
+          \    TimeoutSeconds=120)\n          print(response)\n          current_status = \"WAIT\"\n          final_status = \"READY\"\n          parameterName = stackname+\"_CleanupStatus\"       \n  \
+          \        response = ssm.put_parameter(Name=parameterName,\n                 Description=\"Waiting for CleanupStatus to be READY\",\n                 Value=current_status,\n                 Type='String',\n\
+          \                 Overwrite=True)\n          print(response)\n          while(current_status!=final_status):\n            time.sleep(30)\n            response = ssm.get_parameter(Name=parameterName)\n\
+          \            parameter = response.get('Parameter')\n            current_status = parameter.get('Value')\n            print(current_status)\n          ssm.delete_parameter(Name=parameterName)\n\
+          \    except Exception as e:\n      print(e)\n      traceback.print_exc()\n    cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, '')\n"
       Environment:
         Variables:
-          Region: !Ref AWS::Region
-          BootNode: !Ref BootnodeInstance
-          StackName: !Ref AWS::StackName
+          Region:
+            Ref: AWS::Region
+          BootNode:
+            Ref: BootnodeInstance
+          StackName:
+            Ref: AWS::StackName
       Handler: index.handler
-      Role: !GetAtt 'LambdaExecutionRole.Arn'
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
       Runtime: python3.7
       Timeout: 600
   Cleanup:
     Type: Custom::Cleanup
     Properties:
       DependsOn: BootnodeInstance
-      ServiceToken: !GetAtt 'CleanUpLambda.Arn'
+      ServiceToken:
+        Fn::GetAtt:
+          - CleanUpLambda
+          - Arn
   ICP4SInstallationCompletedHandle:
     Type: AWS::CloudFormation::WaitConditionHandle
   ICP4SInstallationCompleted:
     Type: AWS::CloudFormation::WaitCondition
     Properties:
       Count: 1
-      Handle: !Ref ICP4SInstallationCompletedHandle
+      Handle:
+        Ref: ICP4SInstallationCompletedHandle
       Timeout: '30000'
 Outputs:
   BootnodePublicIp:
     Description: Boot node public IP address.
-    Value: !GetAtt BootnodeInstance.PublicIp
+    Value:
+      Fn::GetAtt:
+        - BootnodeInstance
+        - PublicIp
   CP4SAdminUser:
     Description: IBM Cloud Pak for Security initial user.
-    Value: !Ref AdminUser
+    Value:
+      Ref: AdminUser
   CP4SWebClientURL:
     Description: IBM Cloud Pak for Security platform URL.
-    Value: !GetAtt CP4SURL.Value
+    Value:
+      Fn::GetAtt:
+        - CP4SURL
+        - Value
   OpenShiftWebConsoleURL:
     Description: Red Hat OpenShift Container platform web console URL.
-    Value: !GetAtt OpenShiftURL.Value
-    
+    Value:
+      Fn::GetAtt:
+        - OpenShiftURL
+        - Value
