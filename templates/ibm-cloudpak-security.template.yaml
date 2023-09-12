@@ -815,3 +815,82 @@ Outputs:
       Fn::GetAtt:
         - OpenShiftURL
         - Value
+  NumberOfAZs:
+    Value:
+      Ref: NumberOfAZs
+  AvailabilityZones:
+    Value: !Join
+        - ','
+        - !Ref AvailabilityZones
+  VPCCIDR:
+    Value:
+      Ref: VPCCIDR
+  PrivateSubnet1ID:
+    Value:
+      Ref: PrivateSubnet1ID
+  PrivateSubnet2ID:
+    Value:
+      Ref: PrivateSubnet2ID
+  PrivateSubnet3ID:
+    Value:
+      Ref: PrivateSubnet3ID
+  PublicSubnet2ID:
+    Value:
+      Ref: PublicSubnet2ID
+  PublicSubnet3ID:
+    Value:
+      Ref: PublicSubnet3ID
+  DomainName:
+    Value:
+      Ref: DomainName
+  RedhatPullSecret:
+    Value:
+      Ref: RedhatPullSecret
+  NumberOfMaster:
+    Value:
+      Ref: NumberOfMaster
+  NumberOfCompute:
+    Value:
+      Ref: NumberOfCompute
+  MasterInstanceType:
+    Value:
+      Ref: MasterInstanceType
+  ComputeInstanceType:
+    Value:
+      Ref: ComputeInstanceType
+  ClusterName:
+    Value:
+      Ref: ClusterName
+  CP4SVersion:
+    Value:
+      Ref: CP4SVersion
+  Namespace:
+    Value:
+      Ref: Namespace
+  CP4SFQDN:
+    Value:
+      Ref: CP4SFQDN
+  StorageClass:
+    Value:
+      Ref: StorageClass
+  BackupStorageClass:
+    Value:
+      Ref: BackupStorageClass
+  BackupStorageSize:
+    Value:
+      Ref: BackupStorageSize
+  ImagePullPolicy:
+    Value:
+      Ref: ImagePullPolicy
+  DeployDRC:
+    Value:
+      Ref: DeployDRC
+  DeployRiskManager:
+    Value:
+      Ref: DeployRiskManager
+  DeployThreatInvestigator:
+    Value:
+      Ref: DeployThreatInvestigator
+  QSS3BucketRegion:
+    Value:
+      Ref: QSS3BucketRegion
