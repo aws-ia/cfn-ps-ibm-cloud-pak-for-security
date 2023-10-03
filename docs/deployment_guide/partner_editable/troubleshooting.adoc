@@ -1,4 +1,11 @@
 // Add any unique troubleshooting steps here.
+Make notes of the the log files that are generated in the output S3 bucket: 
+
+* bootstrap.log - STDOUT of the high overview of the events during deployment of Red Hat OpenShift Container Platform and IBM Cloud Pak for Security.  
+* ocp_install.log - STDOUT of the deployment of Red Hat OpenShift Container Platform using IPI.
+* cp4s_install.log - STDOUT of the deployment of IBM Cloud Pak for Security including the validation of the installation and deployment of SOAR Entitlement.
+
+For troubleshooting {partner-product-name} related issues, refer to the https://www.ibm.com/docs/en/SSTDPP_1.10/docs/scp-core/support.html[{partner-product-name} Troubleshooting and Support Guide^].
 
 For troubleshooting common Partner Solution issues, refer to the https://fwd.aws/rA69w?[AWS Partner Solution General Information Guide^] and https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting CloudFormation^].
 
