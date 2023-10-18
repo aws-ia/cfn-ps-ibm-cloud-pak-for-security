@@ -387,7 +387,7 @@ Parameters:
   QSS3BucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
     ConstraintDescription: The Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-) and must be between 3 (min) and 63 (max) characters long. It cannot start or end with a hyphen (-).
-    Default: aws-ia-us-east-1
+    Default: aws-ia
     Description: >-
       Name of the S3 bucket for your copy of the Quick Start assets. Do not change the default value unless you are customizing the deployment. Changing the name updates code references to point to a new Quick Start location. 
       This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). Bucket names must be between 3 (min) and 63 (max) characters long. To know how you can customize the deployment, see https://aws-quickstart.github.io/option1.html
@@ -422,7 +422,7 @@ Rules:
       AssertDescription: User must agree to the terms of the IBM Cloud Pak for Security license agreement.
 Conditions:
   3AZCondition: !Equals [!Ref NumberOfAZs, 3]
-  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-ia-us-east-1']
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-ia']
 Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
